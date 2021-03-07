@@ -18,6 +18,8 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
+    private String email;
+
     private String name;
 
     @Enumerated(EnumType.STRING)
@@ -30,8 +32,9 @@ public class Member {
     private List<Comment> comments = new ArrayList<>();
 
     //==생성 메서드==//
-    public static Member createMember(String name,Gender gender) {
+    public static Member createMember(String name,String email,Gender gender) {
         Member member = new Member();
+        member.email = email;
         member.name = name;
         member.gender = gender;
         return member;
