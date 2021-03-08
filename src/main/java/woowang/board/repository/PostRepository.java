@@ -11,10 +11,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostRepository {
 
-    private EntityManager em;
+    private final EntityManager em;
 
     public void save(Post post) {
-        em.persist(post);
+            em.persist(post);
+    }
+
+    public void edit(Long id, String title, String content) {
+        Post findPost = em.find(Post.class, id);
+
+
     }
 
     public Post findOne(Long id) {

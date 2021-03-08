@@ -11,7 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryRepository {
 
-    private EntityManager em;
+    private final EntityManager em;
 
     public void save(Category category) {
         em.persist(category);
@@ -21,6 +21,11 @@ public class CategoryRepository {
         return em.find(Category.class, id);
     }
 
+    public List<Category> findByName(String name) {
+        return em.createQuery("select c from Category c where c.name =:name", Category.class)
+                .setParameter("name", name)
+                .getResultList();
+    }
 
     public List<Category> findAll() {
         return em.createQuery("select p from Post p",Category.class).getResultList();

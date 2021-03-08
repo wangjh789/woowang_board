@@ -39,26 +39,37 @@ public class Post {
 
 
     //==연관관계 메소드==//
-    public void setMember(Member member) {
+    private void setMember(Member member) {
         this.member = member;
         this.member.getPosts().add(this);
     }
 
-    public void setCategory(Category category) {
+    private void setCategory(Category category) {
         this.category = category;
         this.category.getPosts().add(this);
     }
 
     //==생성 메서드==//
-    public static Post createPost(Member member, Category category, String title, String content, LocalDateTime dateTime) {
+    public static Post createPost(Member member, Category category, String title, String content) {
         Post post = new Post();
         post.setMember(member);
-        post.category = category;
+        post.setCategory(category);
         post.title = title;
         post.content = content;
-        post.dateTime = dateTime;
-
+        post.dateTime = LocalDateTime.now();
         return post;
+    }
+
+    //==변경 메소드==//
+    public void editPost(Category category,String title,String content) {
+        this.editCategory(category);
+        this.title = title;
+        this.content = content;
+        this.dateTime = LocalDateTime.now();
+    }
+    private void editCategory(Category newCategory) {
+        this.category.getPosts().remove(this);
+        setCategory(newCategory);
     }
 
 }

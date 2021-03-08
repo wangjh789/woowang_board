@@ -11,7 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommentRepository {
 
-    private EntityManager em;
+    private final EntityManager em;
 
     public void save(Comment comment) {
         em.persist(comment);
