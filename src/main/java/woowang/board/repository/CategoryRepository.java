@@ -28,6 +28,6 @@ public class CategoryRepository {
     }
 
     public List<Category> findAll() {
-        return em.createQuery("select p from Post p",Category.class).getResultList();
+        return em.createQuery("select c from Category c",Category.class).getResultList();
     }
 }

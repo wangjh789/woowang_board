@@ -3,8 +3,11 @@ package woowang.board.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import woowang.board.controller.PostSearch;
 import woowang.board.domain.Post;
 import woowang.board.repository.PostRepository;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -28,6 +31,11 @@ public class PostService {
      */
     public Post findOne(Long id) {
         return postRepository.findOne(id);
+    }
+
+    public List<Post> findPosts(PostSearch postSearch) {
+        return postRepository.findAll(postSearch);
+
     }
 
 }
