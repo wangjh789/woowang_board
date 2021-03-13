@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--<head th:replace="fragments/header :: header" />-->
+<body>
+<div class="container">
+<!--    <div th:replace="fragments/bodyHeader :: bodyHeader"/>-->
+    <div>
+        <table class="table table-striped">
+            <thead> <tr>
+                <th>#</th> <th>상품명</th> <th>가격</th> <th>재고수량</th> <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="posting : ${postings}">
+                <td th:text="${posting.id}"></td>
+                <td th:text="${posting.category.name}"></td>
+                <td th:text="${posting.title}"></td>
+                <td th:text="${posting.content}"></td>
+                <td th:text="${posting.user.username}"></td>
+                <td th:text="${posting.dateTime}"></td>
+                <td>
+                    <a href="#" th:href="@{/postings/{id} (id=${posting.id})}" class="btn btn-primary" role="button">View</a>
+                </td> </tr>
+            </tbody>
+        </table>
+    </div>
+<!--    <div th:replace="fragments/footer :: footer"/>-->
+</div> <!-- /container -->
+</body>
+</html>

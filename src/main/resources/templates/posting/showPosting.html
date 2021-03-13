@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--<head th:replace="fragments/header :: header">-->
+<title>Hello</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<a href="#" th:href="@{/postings/{id}/edit (id=${posting.id})}" class="btn btn-primary" role="button">Edit</a>
+
+<div class="container">
+        <p class="lead">제목</p> <p>
+    <span th:text="${posting.title}"></span>
+        <p class="lead">내용</p> <p>
+    <span th:text="${posting.content}"></span>
+        <p class="lead">작성자</p> <p>
+    <span th:text="${posting.user.username}"></span>
+        <p class="lead">카테고리</p> <p>
+    <span th:text="${posting.category.name}"></span>
+        <p class="lead">시간</p> <p>
+    <span th:text="${posting.dateTime}"></span>
+        <p class="lead">댓글</p> <p>
+    <table class="table table-striped">
+        <tbody>
+        <tr th:each="comment : ${posting.comments}">
+            <td th:text="${comment.id}"></td>
+            <td th:text="${comment.content}"></td>
+            <td th:text="${comment.user.username}"></td>
+            <td th:text="${comment.dateTime}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form method="post" role="form" th:action="@{/postings/{id}/addComment (id=${posting.id})}" th:object="${commentForm}">
+        <label th:for="content">내용</label>
+        <input type="text" th:field="*{content}" class="form-control" placeholder="내용을 입력하세요"
+               th:class="'form-control'">
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+
+    </div>
+</div> <!-- /container -->
+</body>
+</html>

@@ -1,13 +1,14 @@
 package com.woowang.myboard;
 
-import com.woowang.myboard.model.ERole;
-import com.woowang.myboard.model.Role;
+import com.woowang.myboard.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -33,6 +34,28 @@ public class InitDB {
 
             Role role2 = new Role(ERole.ROLE_USER);
             em.persist(role2);
+
+            Set<Role> roles = new HashSet<>();
+            roles.add(role1);
+            User user = new User("woowang", "wangjh789@gmail.com", "123123");
+            user.setRoles(roles);
+            em.persist(user);
+
+            Category category = Category.createCategory("temp");
+            em.persist(category);
+
+            Posting posting1 = Posting.createPosting("임시 게시물1", "임시 내용1", user, category);
+            em.persist(posting1);
+
+            Posting posting2 = Posting.createPosting("임시 게시물1", "임시 내용1", user, category);
+            em.persist(posting2);
+
+            Comment comment1 = Comment.createComment("임시 댓글1", user, posting1);
+            em.persist(comment1);
+
+            Comment comment2 = Comment.createComment("임시 댓글2", user, posting1);
+            em.persist(comment2);
+
         }
 
     }

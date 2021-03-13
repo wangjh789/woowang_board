@@ -1,8 +1,10 @@
 package com.woowang.myboard.security.service;
 
 import com.woowang.myboard.model.User;
+import com.woowang.myboard.payload.response.MessageResponse;
 import com.woowang.myboard.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,7 +16,18 @@ import javax.transaction.Transactional;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
+
+    @Transactional
+    public void join(User user){
+        if (userRepository.existsByUsername(user.getUsername())) {
+            throw new RuntimeException("User already Exist");
+        }
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new RuntimeException("User already Exist");
+        }
+        userRepository.save(user);
+    }
 
     @Override
     @Transactional

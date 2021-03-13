@@ -4,6 +4,7 @@ package com.woowang.myboard.model;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Posting {
 
@@ -40,6 +42,11 @@ public class Posting {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    //==비즈니스 로직 ==//
+    public void edit(String title,String content) {
+        this.title = title;
+        this.content = content;
+    }
 
     //==생성 메소드==//
     public static Posting createPosting(String title,String content,User user,Category category){
